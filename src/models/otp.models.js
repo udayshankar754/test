@@ -9,11 +9,7 @@ const otpSchema = new Schema(
         otp : {
             type : String,
             required : true,
-        },
-        // timestamp: {
-        //     default : Date.now(),
-        // }
-
+        }
     },
     {
         timestamps : true,

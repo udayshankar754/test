@@ -7,6 +7,8 @@ import {
     refreshAccessToken,
     updateAccountDetails,
     resetPassword,
+    mailVerification
+
 } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
@@ -25,5 +27,7 @@ router.route("/refresh-token").get(refreshAccessToken)
 router.route("/update-account").patch(verifyJWT, updateAccountDetails)
 router.route("/forgot-password").post(verifyJWT,forgotPassword);
 router.route("/reset-password").post(verifyJWT , resetPassword);
+
+router.route("/email-confirmation?:url").get(mailVerification)
 
 export default router

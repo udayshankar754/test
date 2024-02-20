@@ -20,7 +20,18 @@ const userSchema = new Schema(
         },
         refreshToken: {
             type: String
-        }
+        },
+
+        // For User Mail Verification
+
+
+        // isMailVerified: {
+        //     type: Boolean,
+        //     default: false
+        // },
+        // verificationUrl : {
+        //     type: String
+        // }
 
     },
     {

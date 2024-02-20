@@ -24,6 +24,7 @@ const mailHelper = (to, subject ,text) => {
        console.log(info)  
     }
     });
+
 }
 
 export default mailHelper

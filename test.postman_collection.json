@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "ad86c0f5-2248-405e-ba83-28888ed3f47d",
+		"name": "test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30996747",
+		"_collection_link": "https://bold-desert-28261.postman.co/workspace/New-Team-Workspace~a77a47f2-ee07-45ab-944d-21a679160975/collection/30996747-ad86c0f5-2248-405e-ba83-28888ed3f47d?action=share&source=collection_link&creator=30996747"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"uday\",\r\n    \"email\" : \"uday.naxtre@gmail.com\",\r\n    \"password\" : \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/user/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"chandanpurbey754@gmail.com\",\r\n    \"password\" : \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/user/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/user/logout"
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/user/refresh-token"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Account Details",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"rewr\",\r\n    \"email\" : \"chandanpurbey754@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/user/update-account"
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to\" : \"chandanpurbey754@gmail.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/user/forgot-password"
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"otp\" :  17612,\r\n \"newPassword\" : \"udayshankerpurbey754\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/user/reset-password"
+			},
+			"response": []
+		}
+	]
+}

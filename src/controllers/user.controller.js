@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import mailHelper from "../utils/MailHelper.js";
 import { Otp } from "../models/otp.models.js";
 import { request } from "express";
+import cryptoRandomString from 'crypto-random-string';
 
 const generateAccessAndRefereshTokens = async(userId) =>{
     try {
@@ -25,6 +26,8 @@ const generateAccessAndRefereshTokens = async(userId) =>{
     }
 }
 
+const randomUrl = cryptoRandomString({length: 10, type: 'base64'});
+
 const registerUser = asyncHandler( async (req, res) => {
     const {name ,email, password } = req.body
 
@@ -40,6 +43,20 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(409, "User with email or username already exists")
     }
 
+    // TODO: Verify user through email.
+
+    // const link = `http://localhost:${process.env.PORT}/user/email-confirmation?:${randomUrl}`;
+
+    // mailHelper(email, "Verification Link",link);
+    // console.log(req.url , " " , link)
+
+
+    // if(req.url === `/email-confirmation?:${randomUrl} `) {
+    //     console.log("Email confirmed ")
+    // }
+
+
+    
 
     const user = await User.create({
         name,
@@ -60,6 +77,13 @@ const registerUser = asyncHandler( async (req, res) => {
     )
 
 } )
+
+const mailVerification = asyncHandler( async (req, res) => {
+
+    console.log("url ",req.url)
+
+    return req.url
+})
 
 const loginUser = asyncHandler(async (req, res) =>{
 
@@ -133,7 +157,7 @@ const logoutUser = asyncHandler(async(req, res) => {
 })
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+    const incomingRefreshToken = req.cookies.refreshToken
 
     if (!incomingRefreshToken) {
         throw new ApiError(401, "unauthorized request")
@@ -179,8 +203,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     }
 
 })
-
-
 
 const updateAccountDetails = asyncHandler(async(req, res) => {
     const { name, email} = req.body
@@ -246,6 +268,13 @@ const resetPassword = asyncHandler(async(req, res) => {
         throw new ApiError(405,"Invalid OTP")
     }
 
+      //Otp is valid for 15 Minutes 
+    if((otpFromDb.updatedAt.getTime()+900000) < Date.now()) {
+        throw new ApiError(403, "Otp Time Out ! Please try again")
+    }
+
+
+
     const user = await User.findById(req.user?._id)
 
     if (!newPassword && !otp) {
@@ -254,6 +283,7 @@ const resetPassword = asyncHandler(async(req, res) => {
 
     user.password = newPassword
     await user.save({validateBeforeSave: false})
+
 
     await Otp.findByIdAndDelete(otpFromDb._id)
 
@@ -265,6 +295,8 @@ const resetPassword = asyncHandler(async(req, res) => {
 
 
 
+
+
 export {
     registerUser,
     loginUser,
@@ -272,6 +304,6 @@ export {
     forgotPassword,
     refreshAccessToken,
     updateAccountDetails,
-    resetPassword
-
+    resetPassword,
+    mailVerification
 }
