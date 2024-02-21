@@ -31,7 +31,7 @@ export default mailHelper
 
 
 
-// //add this to env to use it
+// //add this to env to use it  and also install nodemailser to use this
 
 // # for email
 // SENDER_EMAIL = 'uday.naxtre@gmail.com'
